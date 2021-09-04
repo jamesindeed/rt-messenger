@@ -17,6 +17,12 @@ body {
 #root {
   height: 100%;
 }
+
+::placeholder {
+      color: rgba(255, 255, 255, 0.66);
+      white-space: nowrap;
+      width: 150px;
+    }
 `;
 
 export default GlobalStyle;

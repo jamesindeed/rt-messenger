@@ -33,6 +33,25 @@ const ChannelListContainer = () => {
       <SiderBar />
       <ChannelListListWrapper>
         <CompanyHeader />
+        <ChannelSearch />
+        <ChannelList
+          filters={{}}
+          channelRenderFilterFn={() => {}}
+          // List={(listProps) => <TeamChannelList {...listProps} type="team" />}
+          Preview={(previewProps) => (
+            <TeamChannelPreview {...previewProps} type="team" />
+          )}
+        />
+        <ChannelList
+          filters={{}}
+          channelRenderFilterFn={() => {}}
+          // List={(listProps) => (
+          //   <TeamChannelList {...listProps} type="messaging" />
+          // )}
+          Preview={(previewProps) => (
+            <TeamChannelPreview {...previewProps} type="messaging" />
+          )}
+        />
       </ChannelListListWrapper>
     </>
   );
