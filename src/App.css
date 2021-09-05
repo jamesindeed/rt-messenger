@@ -1,0 +1,20 @@
+:root {
+  /* --primary-color: #4a536b;
+  --primary-color-alpha: #aed6dc;
+  --primary-color-beta: #ff9a8d; */
+
+  --primary-color: #6714cc;
+  --primary-color-alpha: #8119ff;
+  --primary-color-beta: #ff9a8d;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
