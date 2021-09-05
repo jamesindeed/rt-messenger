@@ -3,23 +3,26 @@ import { StreamChat } from "stream-chat";
 import { Chat } from "stream-chat-react";
 import Cookies from "universal-cookie";
 import styled from "styled-components";
-import GlobalStyle from "./GlobalStyle";
 
-import { ChannelContainer, ChannelListContainer } from "./components";
+import { ChannelContainer, ChannelListContainer, Auth } from "./components";
+
+//Global Styles
+import "./App.css";
 
 const client = StreamChat.getInstance(process.env.API_KEY);
 
+const authToken = false;
+
 const App = () => {
+  if (!authToken) return <Auth />;
+
   return (
-    <>
-      <GlobalStyle />
-      <AppWrapper>
-        <Chat client={client} theme="team light">
-          <ChannelListContainer />
-          <ChannelContainer />
-        </Chat>
-      </AppWrapper>
-    </>
+    <AppWrapper>
+      <Chat client={client} theme="team light">
+        <ChannelListContainer />
+        <ChannelContainer />
+      </Chat>
+    </AppWrapper>
   );
 };
 
