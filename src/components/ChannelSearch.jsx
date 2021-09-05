@@ -63,10 +63,6 @@ const ChannelSearchInputWrapper = styled.div`
   border: 1px solid transparent;
   width: 90%;
   justify-content: flex-start;
-
-  :hover {
-    border: 1px solid #fff;
-  }
 `;
 
 const ChannelSearchInputIcon = styled.div`
