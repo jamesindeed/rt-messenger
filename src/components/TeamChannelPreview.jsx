@@ -35,7 +35,7 @@ const TeamChannelPreview = ({ channel, type }) => {
     //     console.log(channel);
     //   }}
     // >
-    //     { type === 'team' ? <ChannelPreview /> : <DirectPreview />}
+    //   {type === "team" ? <ChannelPreview /> : <DirectPreview />}
     // </ChannelPreviewWrapper>
     <>
       {channel?.id === activeChannel?.id ? (
@@ -78,7 +78,7 @@ const ChannelPreviewItemSingle = styled.div`
   margin-right: 12px;
 `;
 
-// TODO: Test this code with commented out code below.
+// TODO: Test this code
 const ChannelPreviewWrapper = styled.div`
   height: 37px;
   display: flex;
@@ -88,7 +88,7 @@ const ChannelPreviewWrapper = styled.div`
     background: rgba(0, 0, 0, 0.2);
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
-    font-weight: bold;
+    /* font-weight: bold; */
     margin-right: 16px;
     cursor: pointer;
   }
@@ -105,15 +105,6 @@ const ChannelPreviewWrapperSelected = styled.div`
   margin-right: 16px;
   cursor: pointer;
   z-index: 2;
-
-  :hover {
-    background: rgba(0, 0, 0, 0.2);
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    font-weight: bold;
-    margin-right: 16px;
-    cursor: pointer;
-  }
 `;
 
 // const ChannelPreviewWrapper = styled.div`
@@ -136,12 +127,11 @@ const ChannelPreviewWrapperSelected = styled.div`
 //       z-index: 2;
 //     `}
 
-//   :hover {
-//     background: rgba(0, 0, 0, 0.2);
-//     border-top-right-radius: 8px;
-//     border-bottom-right-radius: 8px;
-//     font-weight: bold;
-//     margin-right: 16px;
-//     cursor: pointer;c
+//     :hover {
+//       background: rgba(0, 0, 0, 0.2);
+//       border-top-right-radius: 8px;
+//       border-bottom-right-radius: 8px;
+//       margin-right: 16px;
+//       cursor: pointer;c
 //   }
 // `;
