@@ -1,12 +1,13 @@
 import React from "react";
 import { ChannelList, useChatContext } from "stream-chat-react";
-
 import styled from "styled-components";
 import { ChannelSearch, TeamChannelList, TeamChannelPreview } from "./";
 import Cookies from "universal-cookie";
 import { BiMessageRoundedMinus, BiLogOutCircle } from "react-icons/bi";
 
-const SiderBar = () => (
+const cookies = new Cookies();
+
+const SiderBar = ({ logout }) => (
   <ChannelListSideBar>
     <ChannelListSideBarIcon>
       <IconInner>
@@ -14,7 +15,7 @@ const SiderBar = () => (
       </IconInner>
     </ChannelListSideBarIcon>
     <ChannelListSideBarIcon>
-      <IconInner>
+      <IconInner onClick={logout}>
         <BiLogOutCircle size={30} alt="Logout" />
       </IconInner>
     </ChannelListSideBarIcon>
@@ -28,16 +29,28 @@ const CompanyHeader = () => (
 );
 
 const ChannelListContainer = () => {
+  const logout = () => {
+    cookies.remove("token");
+    cookies.remove("userId");
+    cookies.remove("username");
+    cookies.remove("fullName");
+    cookies.remove("avatarURL");
+    cookies.remove("hashedPassword");
+    cookies.remove("phoneNumber");
+
+    window.location.reload();
+  };
+
   return (
     <>
-      <SiderBar />
+      <SiderBar logout={logout} />
       <ChannelListListWrapper>
         <CompanyHeader />
         <ChannelSearch />
         <ChannelList
           filters={{}}
           channelRenderFilterFn={() => {}}
-          // List={(listProps) => <TeamChannelList {...listProps} type="team" />}
+          List={(listProps) => <TeamChannelList {...listProps} type="team" />}
           Preview={(previewProps) => (
             <TeamChannelPreview {...previewProps} type="team" />
           )}
@@ -45,9 +58,9 @@ const ChannelListContainer = () => {
         <ChannelList
           filters={{}}
           channelRenderFilterFn={() => {}}
-          // List={(listProps) => (
-          //   <TeamChannelList {...listProps} type="messaging" />
-          // )}
+          List={(listProps) => (
+            <TeamChannelList {...listProps} type="messaging" />
+          )}
           Preview={(previewProps) => (
             <TeamChannelPreview {...previewProps} type="messaging" />
           )}
