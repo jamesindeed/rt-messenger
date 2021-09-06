@@ -69,13 +69,19 @@ const ChannelSearchInputIcon = styled.div`
   width: 32px;
   display: flex;
   justify-content: center;
+  padding: 10px;
 `;
 
 const ChannelSearchInputText = styled.input`
   background: none;
   border: none;
   color: #fff;
+
   font-family: Helvetica Neue, sans-serif;
   font-size: 16px;
   outline: none;
+
+  input::-ms-input-placeholder {
+    color: #a9a9a9;
+  }
 `;
