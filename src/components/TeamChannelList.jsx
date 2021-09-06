@@ -15,16 +15,16 @@ const TeamChannelList = ({ children, error = false, loading, type }) => {
 
   if (loading) {
     return (
-      <TeamChannelList>
+      <TeamChannelListWrapper>
         <TeamChannelListMessageLoading>
           {type === "team" ? "Channels" : "Messages"} Loading...
         </TeamChannelListMessageLoading>
-      </TeamChannelList>
+      </TeamChannelListWrapper>
     );
   }
 
   return (
-    <TeamChannelList>
+    <TeamChannelListWrapper>
       <TeamChannelListHeader>
         <TeamChannelListHeaderTitle>
           {type === "team" ? "Channels" : "Direct Messages"} Loading...
@@ -32,7 +32,7 @@ const TeamChannelList = ({ children, error = false, loading, type }) => {
         {/* TODO: BUTTON - ADD CHANNEL */}
       </TeamChannelListHeader>
       {children}
-    </TeamChannelList>
+    </TeamChannelListWrapper>
   );
 };
 
@@ -42,6 +42,7 @@ const TeamChannelListWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  color: white; /* You have no channels message - remove if confilcts */
 `;
 
 const TeamChannelListMessage = styled.p`
@@ -51,6 +52,8 @@ const TeamChannelListMessage = styled.p`
 
 const TeamChannelListMessageLoading = styled.p`
   height: 115px;
+  color: #ffffff;
+  padding-right: 5px;
 `;
 
 const TeamChannelListHeader = styled.div`
@@ -71,4 +74,5 @@ const TeamChannelListHeaderTitle = styled.p`
   height: 16px;
   color: rgba(255, 255, 255, 0.66);
   margin-bottom: 10px;
+  color: #ffffff;
 `;
