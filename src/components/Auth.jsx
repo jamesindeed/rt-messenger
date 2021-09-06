@@ -5,6 +5,8 @@ import styled from "styled-components";
 
 import signInImage from "../assets/signup.jpg";
 
+const cookies = new Cookies();
+
 const initialState = {
   fullName: "",
   username: "",
@@ -25,8 +27,34 @@ const Auth = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // TODO: Backend
+    const { fullName, username, password, phoneNumber, avatarURL } = form;
+
+    const URL = "http://localhost:5000/auth";
+
+    const {
+      data: { token, userId, hashedPassword },
+    } = await axios.post(`${URL}/${isSignup ? "signup" : "login"}`, {
+      username,
+      password,
+      fullName,
+      phoneNumber,
+      avatarURL,
+    });
+
+    cookies.set("token", token);
+    cookies.set("username", username);
+    cookies.set("fullName", fullName);
+    cookies.set("userId", userId);
+
+    if (isSignup) {
+      cookies.set("phoneNumber", phoneNumber);
+      cookies.set("avatarURL", avatarURL);
+      cookies.set("hashedPassword", hashedPassword);
+    }
+
+    window.location.reload();
   };
+
   const switchMode = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup);
   };
@@ -129,20 +157,22 @@ const Auth = () => {
 export default Auth;
 
 const AuthFormContainer = styled.div`
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: row;
 
   @media screen and (max-width: 800px) {
     flex-direction: column-reverse;
+    height: auto;
+    min-height: 100vh;
   }
 `;
 const AuthFormContainerFields = styled.div`
-  flex: 2;
+  flex: 3;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 2rem;
+  padding: 4vw;
   background: #7686f5;
 
   @media screen and (max-width: 800px) {
@@ -158,7 +188,7 @@ const AuthFormContainerFieldsContent = styled.div`
   flex-direction: column;
   justify-content: flex-start;
 
-  padding: 2rem;
+  padding: 2.5rem;
   box-shadow: 0px 1px 5px rgb(0 0 0 / 10%);
   border-radius: 15px;
   transition: 0.8s ease;
@@ -173,6 +203,7 @@ const AuthFormContainerFieldsContent = styled.div`
 
   @media screen and (max-width: 800px) {
     margin-top: 8vh;
+    padding: 2rem;
   }
 `;
 
@@ -202,7 +233,7 @@ const AuthFormContainerFieldsContentInput = styled.div`
     width: 85%;
     background: #fff;
 
-    @media screen and (max-width: 375px) {
+    @media screen and (max-width: 800px) {
       width: 95%;
     }
   }

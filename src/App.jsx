@@ -9,9 +9,27 @@ import { ChannelContainer, ChannelListContainer, Auth } from "./components";
 //Global Styles
 import "./App.css";
 
-const client = StreamChat.getInstance(process.env.API_KEY);
+const cookies = new Cookies();
+// const apiKey = process.env.REACT_APP_API_KEY;
+const apiKey = "ayx4bv5ktc44";
 
-const authToken = false;
+const client = StreamChat.getInstance(apiKey);
+
+const authToken = cookies.get("token");
+
+if (authToken) {
+  client.connectUser(
+    {
+      id: cookies.get("userId"),
+      name: cookies.get("username"),
+      fullName: cookies.get("fullName"),
+      image: cookies.get("avatarURL"),
+      hashedPassword: cookies.get("hashedPassword"),
+      phoneNumber: cookies.get("phoneNumber"),
+    },
+    authToken
+  );
+}
 
 const App = () => {
   if (!authToken) return <Auth />;
