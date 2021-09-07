@@ -11,7 +11,7 @@ import "./App.css";
 
 const cookies = new Cookies();
 // const apiKey = process.env.REACT_APP_API_KEY;
-const apiKey = "ayx4bv5ktc44";
+const apiKey = process.env.REACT_APP_API_KEY;
 
 const client = StreamChat.getInstance(apiKey);
 
