@@ -27,7 +27,7 @@ const TeamChannelList = ({ children, error = false, loading, type }) => {
     <TeamChannelListWrapper>
       <TeamChannelListHeader>
         <TeamChannelListHeaderTitle>
-          {type === "team" ? "Channels" : "Direct Messages"} Loading...
+          {type === "team" ? "Channels" : "Direct Messages"}
         </TeamChannelListHeaderTitle>
         {/* TODO: BUTTON - ADD CHANNEL */}
       </TeamChannelListHeader>
@@ -42,18 +42,31 @@ const TeamChannelListWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  color: white; /* You have no channels message - remove if confilcts */
+
+  p {
+    color: pink;
+    padding-left: 16px;
+    /* font-family: Helvetica Neue, sans-serif; */
+    font-size: 13px;
+    line-height: 16px;
+    height: 16px;
+    color: rgba(255, 255, 255, 0.66);
+  }
 `;
 
-const TeamChannelListMessage = styled.p`
+const TeamChannelListMessage = styled.div`
   color: #ffffff;
-  padding: 0 16px;
+  padding: 10 16px;
 `;
 
-const TeamChannelListMessageLoading = styled.p`
-  height: 115px;
+const TeamChannelListMessageLoading = styled.div`
+  height: 60px; /* 115px */
   color: #ffffff;
-  padding-right: 5px;
+  padding: 10px 16px;
+  /* font-family: Helvetica Neue, sans-serif; */
+  font-size: 13px;
+  line-height: 16px;
+  color: rgba(255, 255, 255, 0.66);
 `;
 
 const TeamChannelListHeader = styled.div`
@@ -67,12 +80,12 @@ const TeamChannelListHeader = styled.div`
   }
 `;
 
-const TeamChannelListHeaderTitle = styled.p`
-  font-family: Helvetica Neue, sans-serif;
+const TeamChannelListHeaderTitle = styled.div`
+  /* font-family: Helvetica Neue, sans-serif; */
   font-size: 13px;
   line-height: 16px;
   height: 16px;
-  color: rgba(255, 255, 255, 0.66);
+  color: #fff;
   margin-bottom: 10px;
-  color: #ffffff;
+  margin-top: 10px;
 `;
