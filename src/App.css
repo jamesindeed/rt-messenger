@@ -1,11 +1,17 @@
 :root {
-  --primary-color: #4a536b;
+  /* --primary-color: #4a536b;
   --primary-color-alpha: #aed6dc;
-  --primary-color-beta: #ff9a8d;
-
-  /* --primary-color: #6714cc;
-  --primary-color-alpha: #8119ff;
   --primary-color-beta: #ff9a8d; */
+  /* 
+  --primary-color: #7686f5;
+  --primary-color-alpha: #8a98f5;
+  --primary-color-beta: #fbba46; */
+
+  --primary-color: #2d2d2d;
+  --primary-color-beta: #2d2d2d;
+  --primary-color-hover: #f2777a;
+  --primary-color-notification: #64c8c8;
+  --primary-color-beta: #797978;
 }
 
 html,
@@ -13,6 +19,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
+  font-family: "Noto Sans", sans-serif;
 }
 
 #root {
