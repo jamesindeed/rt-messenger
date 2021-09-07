@@ -17,6 +17,7 @@ const initialState = {
 };
 
 const Auth = () => {
+  const [isError, setIsError] = useState(null);
   const [isSignup, setIsSignup] = useState(false);
   const [form, setForm] = useState(initialState);
 
@@ -27,32 +28,36 @@ const Auth = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { username, password, phoneNumber, avatarURL } = form; //add form
+    try {
+      const { username, password, phoneNumber, avatarURL } = form;
 
-    const URL = "http://localhost:5000/auth";
+      const URL = process.env.REACT_APP_SERVER_URL;
 
-    const {
-      data: { token, userId, hashedPassword, fullName }, //remove fullname
-    } = await axios.post(`${URL}/${isSignup ? "signup" : "login"}`, {
-      username,
-      password,
-      fullName: form.fullName,
-      phoneNumber,
-      avatarURL,
-    });
+      const {
+        data: { token, userId, hashedPassword, fullName },
+      } = await axios.post(`${URL}/${isSignup ? "signup" : "login"}`, {
+        username,
+        password,
+        fullName: form.fullName,
+        phoneNumber,
+        avatarURL,
+      });
 
-    cookies.set("token", token);
-    cookies.set("username", username);
-    cookies.set("fullName", fullName);
-    cookies.set("userId", userId);
+      cookies.set("token", token);
+      cookies.set("username", username);
+      cookies.set("fullName", fullName);
+      cookies.set("userId", userId);
 
-    if (isSignup) {
-      cookies.set("phoneNumber", phoneNumber);
-      cookies.set("avatarURL", avatarURL);
-      cookies.set("hashedPassword", hashedPassword);
+      if (isSignup) {
+        cookies.set("phoneNumber", phoneNumber);
+        cookies.set("avatarURL", avatarURL);
+        cookies.set("hashedPassword", hashedPassword);
+      }
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+      setIsError("The username or password is incorrect.");
     }
-
-    window.location.reload();
   };
 
   const switchMode = () => {
@@ -145,6 +150,7 @@ const Auth = () => {
               </span>
             </p>
           </AuthFormContainerFieldsAccount>
+          {isError ? <AuthError>{isError}</AuthError> : null}
         </AuthFormContainerFieldsContent>
       </AuthFormContainerFields>
       <AuthFormContainerImage>
@@ -155,6 +161,24 @@ const Auth = () => {
 };
 
 export default Auth;
+
+const AuthError = styled.div`
+  background-color: #fd6f6e;
+  opacity: 0.8;
+  color: #fff;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 12px;
+  padding: 8px 5px;
+  width: 50%;
+  margin: 10px auto 0px auto;
+  text-align: center;
+  font-family: Helvetica Neue, sans-serif;
+
+  @media screen and (max-width: 800px) {
+    width: 90%;
+  }
+`;
 
 const AuthFormContainer = styled.div`
   height: 100vh;
