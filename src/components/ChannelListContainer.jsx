@@ -11,12 +11,12 @@ const SiderBar = ({ logout }) => (
   <ChannelListSideBar>
     <ChannelListSideBarIcon>
       <IconInner>
-        <BiMessageRoundedMinus size={30} alt="Message" />
+        <BiMessageRoundedMinus size={25} alt="Message" />
       </IconInner>
     </ChannelListSideBarIcon>
     <ChannelListSideBarIcon>
       <IconInner onClick={logout}>
-        <BiLogOutCircle size={30} alt="Logout" />
+        <BiLogOutCircle size={25} alt="Logout" />
       </IconInner>
     </ChannelListSideBarIcon>
   </ChannelListSideBar>
@@ -74,16 +74,16 @@ export default ChannelListContainer;
 
 // SideBar
 const ChannelListSideBar = styled.div`
-  width: 72px;
+  width: 65px;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
     var(--primary-color);
   box-shadow: 1px 0px 0px rgba(0, 0, 0, 0.25);
 `;
 
 const ChannelListSideBarIcon = styled.div`
-  width: 44px;
-  height: 44px;
-  margin: 14px auto;
+  width: 40px;
+  height: 40px;
+  margin: 15px auto;
   background: linear-gradient(
       150.64deg,
       rgba(0, 0, 0, 0.1) 12.73%,
