@@ -63,6 +63,12 @@ const ChannelSearchInputWrapper = styled.div`
   border: 1px solid transparent;
   width: 90%;
   justify-content: flex-start;
+
+  /* @media screen and (max-width: 960px) {
+    width: 90%;
+    padding-left: 10px;
+    justify-content: flex-start;
+  } */
 `;
 
 const ChannelSearchInputIcon = styled.div`
@@ -84,4 +90,8 @@ const ChannelSearchInputText = styled.input`
   input::-ms-input-placeholder {
     color: #a9a9a9;
   }
+
+  /* @media screen and (max-width: 960px) {
+    width: inherit;
+  } */
 `;
