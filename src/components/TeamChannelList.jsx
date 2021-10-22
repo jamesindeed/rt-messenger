@@ -2,7 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import { AddChannel } from "../assets";
 
-const TeamChannelList = ({ children, error = false, loading, type }) => {
+const TeamChannelList = ({
+  children,
+  error = false,
+  loading,
+  type,
+  isCreating,
+  setIsCreating,
+  setCreateType,
+  setIsEditing,
+  setToggleContainer,
+}) => {
   if (error) {
     return type === "team" ? (
       <TeamChannelListWrapper>
@@ -29,7 +39,14 @@ const TeamChannelList = ({ children, error = false, loading, type }) => {
         <TeamChannelListHeaderTitle>
           {type === "team" ? "Channels" : "Direct Messages"}
         </TeamChannelListHeaderTitle>
-        {/* TODO: BUTTON - ADD CHANNEL */}
+        <AddChannel
+          isCreating={isCreating}
+          setIsCreating={setIsCreating}
+          setCreateType={setCreateType}
+          setIsEditing={setIsEditing}
+          setToggleContainer={setToggleContainer}
+          type={type === "team" ? "team" : "messaging"}
+        />
       </TeamChannelListHeader>
       {children}
     </TeamChannelListWrapper>

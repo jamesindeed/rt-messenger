@@ -1,9 +1,18 @@
 import React from "react";
 import { Avatar, useChatContext } from "stream-chat-react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-const TeamChannelPreview = ({ channel, type }) => {
+const TeamChannelPreview = ({
+  setActiveChannel,
+  setIsCreating,
+  setIsEditing,
+  setToggleContainer,
+  channel,
+  type,
+}) => {
   const { channel: activeChannel, client } = useChatContext();
+
+  // console.log(channel.data.id);
 
   const ChannelPreview = () => {
     <ChannelPreviewItem>
@@ -17,14 +26,14 @@ const TeamChannelPreview = ({ channel, type }) => {
     );
 
     return (
-      <ChannelPreviewItemSingle>
+      <ChannelPreviewItem>
         <Avatar
           image={members[0]?.user?.image}
           name={members[0]?.user?.fullName || members[0]?.user?.id}
           size={24}
         />
         <p>{members[0]?.user?.fullName || members[0]?.user?.id}</p>
-      </ChannelPreviewItemSingle>
+      </ChannelPreviewItem>
     );
   };
 
@@ -39,21 +48,31 @@ const TeamChannelPreview = ({ channel, type }) => {
     // </ChannelPreviewWrapper>
     <>
       {channel?.id === activeChannel?.id ? (
-        <ChannelPreviewWrapper
-          onClick={() => {
-            console.log(channel);
-          }}
-        >
-          {type === "team" ? <ChannelPreview /> : <DirectPreview />}
-        </ChannelPreviewWrapper>
-      ) : (
         <ChannelPreviewWrapperSelected
           onClick={() => {
-            console.log(channel);
+            setIsCreating(false);
+            setIsEditing(false);
+            setActiveChannel(channel);
+            if (setToggleContainer) {
+              setToggleContainer((prevState) => !prevState);
+            }
           }}
         >
           {type === "team" ? <ChannelPreview /> : <DirectPreview />}
         </ChannelPreviewWrapperSelected>
+      ) : (
+        <ChannelPreviewWrapper
+          onClick={() => {
+            setIsCreating(false);
+            setIsEditing(false);
+            setActiveChannel(channel);
+            if (setToggleContainer) {
+              setToggleContainer((prevState) => !prevState);
+            }
+          }}
+        >
+          {type === "team" ? <ChannelPreview /> : <DirectPreview />}
+        </ChannelPreviewWrapper>
       )}
     </>
   );
@@ -74,16 +93,11 @@ const ChannelPreviewItem = styled.p`
   word-break: break-all;
 `;
 
-const ChannelPreviewItemSingle = styled.div`
-  margin-right: 12px;
-`;
-
-// TODO: Test this code
+// TODO: Figure out styled component props in commented out code below
 const ChannelPreviewWrapper = styled.div`
   height: 37px;
   display: flex;
   align-items: center;
-
   :hover {
     background: rgba(0, 0, 0, 0.2);
     border-top-right-radius: 8px;
@@ -95,7 +109,7 @@ const ChannelPreviewWrapper = styled.div`
 `;
 
 const ChannelPreviewWrapperSelected = styled.div`
-  height: auto;
+  height: 37px;
   display: flex;
   align-items: center;
   background: rgba(0, 0, 0, 0.2);
@@ -104,7 +118,6 @@ const ChannelPreviewWrapperSelected = styled.div`
   font-weight: bold;
   margin-right: 16px;
   cursor: pointer;
-  z-index: 2;
 `;
 
 // const ChannelPreviewWrapper = styled.div`

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ChannelList, useChatContext } from "stream-chat-react";
 import styled from "styled-components";
 import { ChannelSearch, TeamChannelList, TeamChannelPreview } from "./";
@@ -28,7 +28,23 @@ const CompanyHeader = () => (
   </ChannelListHeader>
 );
 
-const ChannelListContainer = () => {
+const customChannelTeamFilter = (channels) => {
+  return channels.filter((channel) => channel.type === "team");
+};
+
+const customChannelMessagingFilter = (channels) => {
+  return channels.filter((channel) => channel.type === "messaging");
+};
+
+const ChannelListContent = ({
+  isCreating,
+  setIsCreating,
+  setCreateType,
+  setIsEditing,
+  setToggleContainer,
+}) => {
+  const { client } = useChatContext();
+
   const logout = () => {
     cookies.remove("token");
     cookies.remove("userId");
@@ -41,6 +57,8 @@ const ChannelListContainer = () => {
     window.location.reload();
   };
 
+  const filters = { members: { $in: [client.userID] } };
+
   return (
     <>
       <SiderBar logout={logout} />
@@ -48,24 +66,93 @@ const ChannelListContainer = () => {
         <CompanyHeader />
         <ChannelSearch />
         <ChannelList
-          filters={{}}
-          channelRenderFilterFn={() => {}}
-          List={(listProps) => <TeamChannelList {...listProps} type="team" />}
+          filters={filters}
+          channelRenderFilterFn={customChannelTeamFilter}
+          List={(listProps) => (
+            <TeamChannelList
+              {...listProps}
+              type="team"
+              isCreating={isCreating}
+              setIsCreating={setIsCreating}
+              setCreateType={setCreateType}
+              setIsEditing={setIsEditing}
+              setToggleContainer={setToggleContainer}
+            />
+          )}
           Preview={(previewProps) => (
-            <TeamChannelPreview {...previewProps} type="team" />
+            <TeamChannelPreview
+              {...previewProps}
+              setIsCreating={setIsCreating}
+              setIsEditing={setIsEditing}
+              setToggleContainer={setToggleContainer}
+              type="team"
+            />
           )}
         />
         <ChannelList
-          filters={{}}
-          channelRenderFilterFn={() => {}}
+          filters={filters}
+          channelRenderFilterFn={customChannelMessagingFilter}
           List={(listProps) => (
-            <TeamChannelList {...listProps} type="messaging" />
+            <TeamChannelList
+              {...listProps}
+              type="messaging"
+              isCreating={isCreating}
+              setIsCreating={setIsCreating}
+              setCreateType={setCreateType}
+              setIsEditing={setIsEditing}
+              setToggleContainer={setToggleContainer}
+            />
           )}
           Preview={(previewProps) => (
-            <TeamChannelPreview {...previewProps} type="messaging" />
+            <TeamChannelPreview
+              {...previewProps}
+              setIsCreating={setIsCreating}
+              setIsEditing={setIsEditing}
+              setToggleContainer={setToggleContainer}
+              type="messaging"
+            />
           )}
         />
       </ChannelListListWrapper>
+    </>
+  );
+};
+
+const ChannelListContainer = ({
+  setCreateType,
+  setIsCreating,
+  setIsEditing,
+}) => {
+  const [toggleContainer, setToggleContainer] = useState(false);
+
+  return (
+    <>
+      <ChannelListWrapper>
+        <ChannelListContent
+          setIsCreating={setIsCreating}
+          setCreateType={setCreateType}
+          setIsEditing={setIsEditing}
+        />
+      </ChannelListWrapper>
+
+      <ChannelListWrapperResponsive
+        style={{
+          left: toggleContainer ? "0%" : "-89%",
+          backgroundColor: "#2d2d2d",
+        }}
+      >
+        <ChannelListWrapperToggle
+          onClick={() =>
+            setToggleContainer((prevToggleContainer) => !prevToggleContainer)
+          }
+        ></ChannelListWrapperToggle>
+        <ChannelListContent
+          setIsCreating={setIsCreating}
+          setCreateType={setCreateType}
+          setIsEditing={setIsEditing}
+          setToggleContainer={setToggleContainer}
+        />
+      </ChannelListWrapperResponsive>
     </>
   );
 };
@@ -74,10 +161,14 @@ export default ChannelListContainer;
 
 // SideBar
 const ChannelListSideBar = styled.div`
-  width: 65px;
+  width: 72px;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    var(--primary-color);
+    var(--primary-color-alpha);
   box-shadow: 1px 0px 0px rgba(0, 0, 0, 0.25);
+
+  /* @media screen and (max-width: 320px) {
+    display: none;
+  } */
 `;
 
 const ChannelListSideBarIcon = styled.div`
@@ -91,7 +182,7 @@ const ChannelListSideBarIcon = styled.div`
     ),
     #ffffff;
   border-radius: 50px;
-  /* box-shadow: 0px 4px 8px rgba(1, 0, 0, 0.33); */
+  box-shadow: 0px 4px 8px rgba(1, 0, 0, 0.13);
   cursor: pointer;
 `;
 
@@ -121,6 +212,40 @@ const ChannelListHeaderText = styled.p`
 const ChannelListListWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background: var(--primary-color);
+  background: var(--primary-color-alpha);
   width: 240px;
+
+  /* @media screen and (max-width: 960px) {
+    width: 100%;
+  } */
+`;
+
+const ChannelListWrapper = styled.div`
+  display: flex;
+  /* height: 800px; */
+  height: 100%;
+  box-shadow: inset 1px 0px 0px rgba(0, 0, 0, 0.1);
+`;
+
+const ChannelListWrapperResponsive = styled.div`
+  display: none;
+  height: 100%;
+  box-shadow: inset 1px 0px 0px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  width: 90%;
+  top: 0%;
+  z-index: 5;
+  transition: 0.8s ease;
+`;
+
+const ChannelListWrapperToggle = styled.div`
+  display: none;
+  height: 50px;
+  width: 50px;
+  background: #2d2d2d;
+  position: absolute;
+  right: -2%;
+  top: 50%;
+  border-radius: 50%;
+  z-index: 2;
 `;
