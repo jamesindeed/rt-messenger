@@ -1,5 +1,6 @@
 :root {
-  --primary-color-alpha: #2d2d2d;
+  /* --primary-color-alpha: #2d2d2d; */
+  --primary-color-alpha: #7686f5;
   --primary-color-beta: #797978;
   --primary-color-hover: #f2777a;
   --primary-color-notification: #64c8c8;
@@ -10,7 +11,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: "Noto Sans", sans-serif;
+  font-family: 'Noto Sans', sans-serif;
 }
 
 #root {

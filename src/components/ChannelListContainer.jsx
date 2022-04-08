@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { ChannelList, useChatContext } from "stream-chat-react";
-import styled from "styled-components";
-import { ChannelSearch, TeamChannelList, TeamChannelPreview } from "./";
-import Cookies from "universal-cookie";
-import { BiMessageRoundedMinus, BiLogOutCircle } from "react-icons/bi";
+import React, { useState } from 'react';
+import { ChannelList, useChatContext } from 'stream-chat-react';
+import styled from 'styled-components';
+import { ChannelSearch, TeamChannelList, TeamChannelPreview } from './';
+import Cookies from 'universal-cookie';
+import { BiMessageRoundedMinus, BiLogOutCircle } from 'react-icons/bi';
 
 const cookies = new Cookies();
 
@@ -11,12 +11,12 @@ const SiderBar = ({ logout }) => (
   <ChannelListSideBar>
     <ChannelListSideBarIcon>
       <IconInner>
-        <BiMessageRoundedMinus size={25} alt="Message" />
+        <BiMessageRoundedMinus size={25} alt='Message' />
       </IconInner>
     </ChannelListSideBarIcon>
     <ChannelListSideBarIcon>
       <IconInner onClick={logout}>
-        <BiLogOutCircle size={25} alt="Logout" />
+        <BiLogOutCircle size={25} alt='Logout' />
       </IconInner>
     </ChannelListSideBarIcon>
   </ChannelListSideBar>
@@ -29,11 +29,11 @@ const CompanyHeader = () => (
 );
 
 const customChannelTeamFilter = (channels) => {
-  return channels.filter((channel) => channel.type === "team");
+  return channels.filter((channel) => channel.type === 'team');
 };
 
 const customChannelMessagingFilter = (channels) => {
-  return channels.filter((channel) => channel.type === "messaging");
+  return channels.filter((channel) => channel.type === 'messaging');
 };
 
 const ChannelListContent = ({
@@ -46,13 +46,13 @@ const ChannelListContent = ({
   const { client } = useChatContext();
 
   const logout = () => {
-    cookies.remove("token");
-    cookies.remove("userId");
-    cookies.remove("username");
-    cookies.remove("fullName");
-    cookies.remove("avatarURL");
-    cookies.remove("hashedPassword");
-    cookies.remove("phoneNumber");
+    cookies.remove('token');
+    cookies.remove('userId');
+    cookies.remove('username');
+    cookies.remove('fullName');
+    cookies.remove('avatarURL');
+    cookies.remove('hashedPassword');
+    cookies.remove('phoneNumber');
 
     window.location.reload();
   };
@@ -71,7 +71,7 @@ const ChannelListContent = ({
           List={(listProps) => (
             <TeamChannelList
               {...listProps}
-              type="team"
+              type='team'
               isCreating={isCreating}
               setIsCreating={setIsCreating}
               setCreateType={setCreateType}
@@ -85,7 +85,7 @@ const ChannelListContent = ({
               setIsCreating={setIsCreating}
               setIsEditing={setIsEditing}
               setToggleContainer={setToggleContainer}
-              type="team"
+              type='team'
             />
           )}
         />
@@ -95,7 +95,7 @@ const ChannelListContent = ({
           List={(listProps) => (
             <TeamChannelList
               {...listProps}
-              type="messaging"
+              type='messaging'
               isCreating={isCreating}
               setIsCreating={setIsCreating}
               setCreateType={setCreateType}
@@ -109,7 +109,7 @@ const ChannelListContent = ({
               setIsCreating={setIsCreating}
               setIsEditing={setIsEditing}
               setToggleContainer={setToggleContainer}
-              type="messaging"
+              type='messaging'
             />
           )}
         />
@@ -137,8 +137,8 @@ const ChannelListContainer = ({
 
       <ChannelListWrapperResponsive
         style={{
-          left: toggleContainer ? "0%" : "-89%",
-          backgroundColor: "#2d2d2d",
+          left: toggleContainer ? '0%' : '-89%',
+          backgroundColor: '#2d2d2d',
         }}
       >
         <ChannelListWrapperToggle
@@ -215,9 +215,9 @@ const ChannelListListWrapper = styled.div`
   background: var(--primary-color-alpha);
   width: 240px;
 
-  @media screen and (max-width: 960px) {
+  /* @media screen and (max-width: 960px) {
     width: 100%;
-  }
+  } */
 `;
 
 const ChannelListWrapper = styled.div`

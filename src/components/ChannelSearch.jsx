@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { useChatContext } from "stream-chat-react";
-import styled from "styled-components";
+import React, { useState, useEffect } from 'react';
+import { useChatContext } from 'stream-chat-react';
+import styled from 'styled-components';
 
-import { SearchIcon } from "../assets";
+import { SearchIcon } from '../assets';
 
 const ChannelSearch = () => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
 
   const getChannels = async () => {
     try {
       //   TODO: Fetch Channels
     } catch (error) {
-      setQuery("");
+      setQuery('');
     }
   };
 
@@ -31,8 +31,8 @@ const ChannelSearch = () => {
           <SearchIcon />
         </ChannelSearchInputIcon>
         <ChannelSearchInputText
-          placeholder="Search"
-          type="text"
+          placeholder='Search'
+          type='text'
           value={query}
           onChange={onSearch}
         ></ChannelSearchInputText>
@@ -91,7 +91,7 @@ const ChannelSearchInputText = styled.input`
     color: #a9a9a9;
   }
 
-  /* @media screen and (max-width: 960px) {
+  @media screen and (max-width: 960px) {
     width: inherit;
-  } */
+  }
 `;
