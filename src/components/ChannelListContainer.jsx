@@ -166,9 +166,9 @@ const ChannelListSideBar = styled.div`
     var(--primary-color-alpha);
   box-shadow: 1px 0px 0px rgba(0, 0, 0, 0.25);
 
-  /* @media screen and (max-width: 320px) {
+  @media screen and (max-width: 320px) {
     display: none;
-  } */
+  }
 `;
 
 const ChannelListSideBarIcon = styled.div`
@@ -215,9 +215,9 @@ const ChannelListListWrapper = styled.div`
   background: var(--primary-color-alpha);
   width: 240px;
 
-  /* @media screen and (max-width: 960px) {
+  @media screen and (max-width: 960px) {
     width: 100%;
-  } */
+  }
 `;
 
 const ChannelListWrapper = styled.div`
