@@ -1,70 +1,103 @@
-# Getting Started with Create React App
+# _REAL TIME MESSENGER_
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+_Real time messenging web app using [Stream](https://getstream.io/)._
 
-## Available Scripts
+## Setup
 
-In the project directory, you can run:
+### Dependencies
 
-### `npm start`
+- [stream-chat-react](https://www.npmjs.com/package/stream-chat-react)
+- [styled-components](https://styled-components.com/)
+- [universal-cookie](https://www.google.com/search?client=firefox-b-d&q=universal+cookie)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Installation
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+**SERVER**
 
-### `npm test`
+1. Download Server from [Here](https://github.com/jamesindeed/rt-messenger-server.git) or clone it using the command below.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```javascript
+git clone https://github.com/jamesindeed/rt-messenger-server.git
+```
 
-### `npm run build`
+2. Rename .env.example to .env and fill in your own info.
+3. Run below to install packages
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```javscript
+npm i
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. Run below to start Server on localhost:5000.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```javscript
+npm start
+```
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**CLIENT**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5. Clone server using command below.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```javascript
+git clone https://github.com/jamesindeed/rt-messenger.git
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+6. Rename .env.example to .env and fill in your own info.
+7. Run below to install packages
 
-## Learn More
+```javscript
+npm i
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+8.  Run below to start Client on localhost:3000.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```javascript
+npm start // Open http://localhost:3000 to view it in the browser.
+```
 
-### Code Splitting
+## Usage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+_To aquire all stream keys for the .env file. Sign up for an account [here](https://getstream.io/)._
 
-### Analyzing the Bundle Size
+## Demo
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```javascript
+const EditChannel = ({ setIsEditing }) => {
+  const { channel } = useChatContext();
+  const [channelName, setChannelName] = useState(channel?.data?.name);
+  const [selectedUsers, setSelectedUsers] = useState([]);
 
-### Making a Progressive Web App
+  const updateChannel = async (event) => {
+    event.preventDefault();
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+    const nameChanged = channelName != (channel.data.name || channel.data.id);
 
-### Advanced Configuration
+    if (nameChanged) {
+      await channel.update(
+        { name: channelName },
+        { text: `Channel name changed to ${channelName}` }
+      );
+    }
+    if (selectedUsers.length) {
+      await channel.addMembers(selectedUsers);
+    }
+    setChannelName(null);
+    setIsEditing(false);
+    setSelectedUsers([]);
+  };
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```
 
-### Deployment
+## Errors and bugs
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+If something is not behaving intuitively, it is a bug and should be reported.
+Report it here by creating an issue: https://github.com/jamesindeed/rt-messenger/issues
 
-### `npm run build` fails to minify
+## Patches and pull requests
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Your patches are welcome. Here's our suggested workflow:
+
+- Fork the project.
+- Make your feature addition or bug fix.
+- Send us a pull request with a description of your work. Bonus points for topic branches!
